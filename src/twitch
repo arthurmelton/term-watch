@@ -1,0 +1,3 @@
+#!/bin/bash
+url=$(youtube-dl -f best --get-url "https://www.twitch.tv/$1")
+mpv $url
