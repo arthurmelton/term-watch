@@ -1,0 +1,4 @@
+#!/bin/bash
+query=$(printf "%s" "$*" | tr " " "+")
+results=$(curl -s "https://lighthouse.odysee.com/search?s=$query&size=1&from=0&claimType=file&nsfw=false" | sed '/name/!d' | sed s/\"name\":\ //g | sed s/\"//g | sed -e "s/ //g")
+mpv "https://odysee.com/$results"
