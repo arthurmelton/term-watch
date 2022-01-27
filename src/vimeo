@@ -1,0 +1,5 @@
+#!/bin/bash
+query=$(printf "%s" "$*" | tr " " "+")
+results=$(curl -s "https://vimeo.com/search?q=$query" -H "User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:96.0) Gecko/20100101 Firefox/96.0" | grep -Eo "/videos\\\/[0-9]{9}" | head -n 1 | sed -e "s/\/videos\\\//g")
+mpv "https://vimeo.com$results"
+
