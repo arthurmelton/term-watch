@@ -1,0 +1,4 @@
+#!/bin/bash
+query=$(printf "%s" "$*" | tr " " "+")
+results=$(curl -s -X POST "https://zenoplay.zenomedia.com/api/zenofm/search/stations" -d "{\"query\":\"$query\",\"page\":1,\"hitsPerPage\":24,\"filters\":{}}" -H "Content-Type: application/json" | grep -Po '(?<="pretty_url":")[^"]*' | head -n1)
+mpv "https://zeno.fm/radio/$results"
