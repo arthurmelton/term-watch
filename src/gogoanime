@@ -1,0 +1,12 @@
+#!/bin/bash
+array=( $@ )
+len=${#array[@]}
+ep=${array[$len-1]}
+name=${array[@]:0:$len-1}
+url=$(curl -s -L -o /dev/null -w "%{url_effective}\n" https://gogoanime.cm)
+query=$(printf "%s" "$name" | tr " " "+")
+anime_url=$(curl -s "{$url}//search.html?keyword=$query" | grep -Eo "/category/[^\"]*" | head -n1)
+final_url=$(echo "$anime_url" | grep -Eo "[^/]*" | tail -n1)
+actual_final_url=$(echo "$final_url-episode-$ep")
+id=$(curl -s "$url$actual_final_url" | grep "iframe" | grep -Eo "[^\"]*" | head -n 2 | tail -n 1)
+xdg-open "https:$id"
