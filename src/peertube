@@ -1,0 +1,4 @@
+#!/bin/bash
+query=$(printf "%s" "$*" | tr " " "+")
+results=$(curl -s "https://sepiasearch.org/api/v1/search/videos?search=$query&nsfw=false&start=0&count=1&sort=-match" | grep -Po '(?<="url":")[^"]*' | head -n 1)
+mpv $results
