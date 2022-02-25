@@ -1,4 +1,4 @@
 #!/bin/bash
 query=$(printf "%s" "$*" | tr " " "+")
-id=$(curl -s "https://api.iheart.com/api/v3/search/all?keywords=$query" | grep -Po '(?<="bestMatch":{"id":)[^,]*')
+id=$(curl -s "https://api.iheart.com/api/v3/search/all?keywords=$query" | grep -Po '(?<="bestMatch":{"id":)[^,]*' | head -n1)
 mpv "https://www.iheart.com/live/$id"
